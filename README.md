@@ -63,6 +63,28 @@ $ go run example.go
 
 Please see the other examples for a complete overview of all the available API calls.
 
+Error Handling
+--------------
+
+Errors returned by the MessageBird API have to be handled by reading its JSON
+response. Handling MessageBird API errors the usual way (`if err!=nil {
+log.Println(err)}`) would simply return "The MessageBird API returned an error".
+To get your application to print a more helpful error message,
+check for errors like this:
+
+```go
+if err != nil {
+	switch errResp := err.(type) {
+	case messagebird.ErrorResponse:
+		for _, mbError := range errResp.Errors {
+			fmt.Printf("Error: %#v\n", mbError)
+		}
+	}
+
+	return
+}
+```
+
 Documentation
 -------------
 Complete documentation, instructions, and examples are available at:

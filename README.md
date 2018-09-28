@@ -66,11 +66,9 @@ Please see the other examples for a complete overview of all the available API c
 Error Handling
 --------------
 
-Errors returned by the MessageBird API have to be handled by reading its JSON
-response. Handling MessageBird API errors the usual way (`if err!=nil {
-log.Println(err)}`) would simply return "The MessageBird API returned an error".
-To get your application to print a more helpful error message,
-check for errors like this:
+If the MessageBird REST API encounters an issue with your request, it returns a slice of errors that has to be unpacked before logging. Handling errors the usual way (`if err != nil { log.Println(err) }`) prints the general error message: "The MessageBird API returned an error". 
+
+Instead, handle errors like this:
 
 ```go
 if err != nil {
